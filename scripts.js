@@ -74,7 +74,7 @@ const menu = [
     {
       id: 10,
       title: "item10",
-      category: "new cat",
+      category: "newcat",
       price: 16.99,
       img: "./images/item-10.jpeg",
       desc: `askdgasdh asdgasdj asdgashugd jasgdja sdgajsdg.`,
@@ -83,45 +83,13 @@ const menu = [
 
 const sectionCenter = document.querySelector('.section-center');
 const container = document.querySelector('.btn-container');
-const filterBtns = document.querySelectorAll('.filter-btn');
 
 
 window.addEventListener('DOMContentLoaded', () => {
   displayMenuItems(menu);
-  const categories = menu.reduce(function(values, item) {
-    if(!values.includes(item.category) ) {
-      values.push(item.category);
-    }
-    return values;
-  },
-   ['all']);
-  const categoryBtns = categories.map(function(category) {
-    return `
-    <button class="filter-btn" type="button" data-id=${category}>${category}</button>
-    `
-   }).join('');
-  container.innerHTML = categoryBtns;
+  displayMenuBtns();
 });
 
-//filter
-filterBtns.forEach(function(btn) {
-  btn.addEventListener('click', (e) => {
-    const category = e.currentTarget.dataset.id;
-    const menuCategory = menu.filter((menuItem) => {
-      if(menuItem.category === category) {
-      return(menuItem); // Заполняем массив нужными объектами
-      }
-    });
-
-    if(category === 'all') {
-      displayMenuItems(menu);
-    }
-    else {
-      displayMenuItems(menuCategory);
-    }
-
-  });
-});
 
 
 function displayMenuItems(items) {
@@ -142,5 +110,42 @@ function displayMenuItems(items) {
 
   displayMenu = displayMenu.join('');
   sectionCenter.innerHTML = displayMenu;
+}
+
+function displayMenuBtns() {
+  const categories = menu.reduce(function(values, item) {
+    if(!values.includes(item.category) ) {
+      values.push(item.category);
+    }
+    return values;
+  },
+   ['all']);
+  const categoryBtns = categories.map(function(category) {
+    return `
+    <button class="filter-btn" type="button" data-id=${category}>${category}</button>
+    `
+   }).join('');
+  container.innerHTML = categoryBtns;
+  const filterBtns = document.querySelectorAll('.filter-btn');
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', (e) => {
+      const category = e.currentTarget.dataset.id;
+      const menuCategory = menu.filter((menuItem) => {
+        if(menuItem.category === category) {
+        return(menuItem); // Заполняем массив нужными объектами
+        }
+      });
+  
+      if(category === 'all') {
+        displayMenuItems(menu);
+      }
+      else {
+        displayMenuItems(menuCategory);
+      }
+
+    });
+  });
+
 }
 
