@@ -82,6 +82,7 @@ const menu = [
   ];
 
 const sectionCenter = document.querySelector('.section-center');
+const container = document.querySelector('.btn-container');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
 
@@ -92,8 +93,14 @@ window.addEventListener('DOMContentLoaded', () => {
       values.push(item.category);
     }
     return values;
-  }, ['all']);
-  console.log(categories);
+  },
+   ['all']);
+  const categoryBtns = categories.map(function(category) {
+    return `
+    <button class="filter-btn" type="button" data-id=${category}>${category}</button>
+    `
+   }).join('');
+  container.innerHTML = categoryBtns;
 });
 
 //filter
