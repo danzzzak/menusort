@@ -71,6 +71,14 @@ const menu = [
       img: "./images/item-9.jpeg",
       desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
+    {
+      id: 10,
+      title: "item10",
+      category: "new cat",
+      price: 16.99,
+      img: "./images/item-10.jpeg",
+      desc: `askdgasdh asdgasdj asdgashugd jasgdja sdgajsdg.`,
+    },
   ];
 
 const sectionCenter = document.querySelector('.section-center');
@@ -79,6 +87,13 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 
 window.addEventListener('DOMContentLoaded', () => {
   displayMenuItems(menu);
+  const categories = menu.reduce(function(values, item) {
+    if(!values.includes(item.category) ) {
+      values.push(item.category);
+    }
+    return values;
+  }, ['all']);
+  console.log(categories);
 });
 
 //filter
@@ -97,14 +112,13 @@ filterBtns.forEach(function(btn) {
     else {
       displayMenuItems(menuCategory);
     }
-    
+
   });
 });
 
 
 function displayMenuItems(items) {
   let displayMenu = items.map(function(item) {
-    console.log(item);
     return `
     <article class="menu-item">
       <img src=${item.img} class="photo" alt=${item.title}>
